@@ -19,11 +19,11 @@
             <asp:Label ID="Label2" runat="server" Text="Signed In"></asp:Label>
         </p>
         <p>
-            <asp:DropDownList ID="DropDownListNames" runat="server" DataSourceID="SqlDataSource1" DataTextField="Expr1" DataValueField="Expr1">
+            <asp:DropDownList ID="DropDownListNames" runat="server" DataSourceID="SqlDataSource1" DataTextField="Expr1" DataValueField="Expr1" CssClass="dropdown">
             </asp:DropDownList>
         </p>
         <p>
-            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource2" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource2" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" CssClass="pagination-lg">
                 <Columns>
                     <asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="True" SortExpression="ID" />
                     <asp:BoundField DataField="FName" HeaderText="FName" SortExpression="FName" />
