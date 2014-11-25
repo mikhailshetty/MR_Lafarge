@@ -21,8 +21,51 @@
     <asp:ContentPlaceHolder id="StyleSection" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body>
-    <div>
+<body role="document">
+    <div class="navbar-wrapper">
+      <div class="container">
+
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+                
+              <%--<a class="navbar-brand" href="http://www.lafarge.com"><img src="images/logo-EN.png" alt="Lafarge" style="width: 100px; height: 100px;"/></a>--%>
+              <a class="navbar-brand" href="http://www.lafarge.com">Lafarge</a>
+
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="http://localhost:51045/FirstPage.aspx">Home</a></li>
+                <li><a href="http://www.lafarge-na.com/wps/portal/na/en/1-About_Us">About</a></li>
+                <li><a href="http://www.lafarge-na.com/wps/portal/na/en/0_6-Contacts">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+    <asp:ContentPlaceHolder id="ContentSection" runat="server">
+            </asp:ContentPlaceHolder>
+    
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/docs.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+   <%-- <div>
 
     </div>
         <div class="container">
@@ -50,7 +93,7 @@
 
 
     </div> <!-- /container -->
-
+--%>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

@@ -32,4 +32,62 @@ public partial class EditOptions : System.Web.UI.Page
     {
 
     }
+    protected void btnFacilitator_Click(object sender, EventArgs e)
+    {
+        string name = DropDownListNames.Text;
+        string fname = "", lname = "";
+
+        for (int i = 0; i < name.Length; i++)
+        {
+            if (name.Substring(i, 1) == " ")
+            {
+                lname = name.Substring(i + 1, name.Length - fname.Length - 1);
+                break;
+            }
+            fname = fname + name.Substring(i, 1);
+        }
+
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+        conn.Open();
+
+        //get id from the first and last name combo box
+        string checkID = "Select ID from Emp where FName = '" + fname + "' and LName = '" + lname + "'";
+        SqlCommand cmd = new SqlCommand(checkID, conn);
+        int idReturned = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+
+        Response.Redirect("FacilitatorPasswordSet.aspx?id=" + idReturned);
+    }
+    protected void btnRemoveFacilitator_Click(object sender, EventArgs e)
+    {
+        string name = DropDownListRemoveFacilitator.Text;
+        string fname = "", lname = "";
+
+        for (int i = 0; i < name.Length; i++)
+        {
+            if (name.Substring(i, 1) == " ")
+            {
+                lname = name.Substring(i + 1, name.Length - fname.Length - 1);
+                break;
+            }
+            fname = fname + name.Substring(i, 1);
+        }
+
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+        conn.Open();
+
+        //get id from the first and last name combo box
+        string checkID = "Select ID from Emp where FName = '" + fname + "' and LName = '" + lname + "'";
+        SqlCommand cmd = new SqlCommand(checkID, conn);
+        int id = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+
+        SqlCommand cmdRemove = new SqlCommand("Delete from Facilitator where ID = '" + id +"'",conn);
+        cmdRemove.ExecuteNonQuery();
+
+        SqlCommand cmdChangeOCheck = new SqlCommand("Update Emp set Facilitator = 'N' where ID ='" + id + "'",conn);
+        cmdChangeOCheck.ExecuteNonQuery();
+
+        GridView1.DataBind();
+        DropDownListRemoveFacilitator.DataBind();
+        conn.Close();
+    }
 }
