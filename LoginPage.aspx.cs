@@ -6,12 +6,82 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Configuration;
-
+using System.Windows.Forms;
 public partial class ContentPage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("Select OrientationDate, ID from Emp", conn);    
         
+        int i=0, count = 0;
+
+        using (var reader = cmd.ExecuteReader())
+        {
+            while (reader.Read())
+            {
+                if((DateTime.Now - (DateTime)reader["OrientationDate"]).TotalDays >365)
+                {
+                    count = count +1;
+                }
+            }
+        }
+        int[] ids;
+        ids = new int[count];
+        using (var reader = cmd.ExecuteReader())
+        {
+            while (reader.Read())
+            {
+                if((DateTime.Now - (DateTime)reader["OrientationDate"]).TotalDays >365)
+                {
+                    ids[i] = (int)reader["ID"];
+                    i = i+1;
+                }
+            }
+        }
+
+        for (int x = 0; x < count; x++)
+        {
+            //MessageBox.Show(ids[x] + " ");
+            SqlCommand cmdupdate = new SqlCommand("Update Emp set Ocheck = 'N' where ID ='" + ids[x] + "'", conn);
+            cmdupdate.ExecuteNonQuery();
+        }
+
+        //SqlCommand cmdSignOut = new SqlCommand("Select Date, ID from TimeLog where SignOUT = NULL", conn);
+        //int temp = 0, countS = 0;
+
+        //using (var reader = cmdSignOut.ExecuteReader())
+        //{
+        //    while (reader.Read())
+        //    {
+        //        if ((DateTime.Now - (DateTime)reader["Date"]).TotalDays > 0)
+        //        {
+        //            countS = countS + 1;
+        //        }
+        //    }
+        //}
+        //int[] idSignOut;
+        //idSignOut = new int[countS];
+        //using (var reader = cmdSignOut.ExecuteReader())
+        //{
+        //    while (reader.Read())
+        //    {
+        //        if ((DateTime.Now - (DateTime)reader["Date"]).TotalDays >= 1)
+        //        {
+        //            idSignOut[i] = (int)reader["ID"];
+        //            temp = temp + 1;
+        //        }
+        //    }
+        //}
+
+        //for (int x = 0; x < countS; x++)
+        //{
+        //    MessageBox.Show(idSignOut[x] + " ");
+        //    //SqlCommand cmdupdate = new SqlCommand("Update Emp set Ocheck = 'N' where ID ='" + ids[x] + "'", conn);
+        //    //cmdupdate.ExecuteNonQuery();
+        //}
+        conn.Close();
     }
     private bool checkIfBothEntered()
     {

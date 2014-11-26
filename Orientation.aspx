@@ -4,22 +4,20 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentSection" Runat="Server">
     <form id="form1" runat="server">
-        <p>
-            <br />
-        </p>
-        <p>
-            <asp:Label ID="lblName" runat="server" Text="Name"></asp:Label>
-&nbsp;<asp:DropDownList ID="DropDownListNames" runat="server" DataSourceID="SqlDataSource1" DataTextField="Expr1" DataValueField="Expr1">
+        <div class="container">
+            <div class="jumbotron">
+            <br /><br />
+            <asp:Label ID="lblName" runat="server" Text="Provide orientation for: "></asp:Label>
+&nbsp;<asp:DropDownList ID="DropDownListNames" CssClass="btn btn-default dropdown-toggle" runat="server" DataSourceID="SqlDataSource1" DataTextField="Expr1" DataValueField="Expr1" OnSelectedIndexChanged="DropDownListNames_SelectedIndexChanged" AutoPostBack="True">
             </asp:DropDownList>
-            <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </p>
-        <p>
-            <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" />
-        </p>
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" SelectCommand="SELECT LTRIM(RTRIM(FName)) + ' ' + LTRIM(RTRIM(LName)) AS Expr1 FROM Emp ORDER BY FName"></asp:SqlDataSource>
-            <p>
-        </p>
+            <br /> <br />
+                  <asp:Button CssClass ="btn btn-lg btn-primary btn-block" ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" />
+                   <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" SelectCommand="SELECT LTRIM(RTRIM(FName)) + ' ' + LTRIM(RTRIM(LName)) AS Expr1 FROM Emp WHERE (Ocheck = 'N') ORDER BY FName"></asp:SqlDataSource>
+            <br /><br />
+               <asp:Label ID="AlertWindow" Visible="false" CssClass="alert alert-success" runat="server" Width ="30%"></asp:Label>
+              
+            </div><!--jumbotroon-->
+            </div><!--container-->
     </form>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptSection" Runat="Server">

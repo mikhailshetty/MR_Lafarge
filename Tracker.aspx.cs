@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Windows.Forms;
 using AjaxControlToolkit;
 using System.Text;
+using System.Net.Mail;
 
 public partial class Tracker : System.Web.UI.Page
 {
@@ -18,6 +19,7 @@ public partial class Tracker : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             GridView1.DataBind();
+            AlertWindow.Visible = false;
 
         }
     }
@@ -109,11 +111,41 @@ public partial class Tracker : System.Web.UI.Page
         if (OCheck == "N")
         {
             btnSignIn.Enabled = false;
-            MessageBox.Show("Inform a Facilitator to provide orientation before signing in.",
-            "Orientation Required!",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Warning
-            );
+            //MessageBox.Show("Inform a Facilitator to provide orientation before signing in.",
+            //"Orientation Required!",
+            //MessageBoxButtons.OK,
+            //MessageBoxIcon.Warning
+            //);
+            AlertWindow.Visible = true;
+            AlertWindow.Text = "Inform a Facilitator to provide orientation before signing in.";
+            AlertWindow.CssClass = "alert alert-warning";
+
+            
+
+            //EMAIL LOGIC here
+            //try
+            //{
+            //    SmtpClient client = new SmtpClient("smtp.hotmail.com", 25);
+
+            //    client.Credentials = new System.Net.NetworkCredential("pinkevil666@hotmail.com", "Ucan'tCRACKthiS");
+            //    client.EnableSsl = true;
+            //    client.Port = System.Convert.ToInt32(25);
+
+            //    MailMessage Message = new MailMessage();
+            //    Message.From = new MailAddress("fingerprint.attendance.system@gmail.com");
+            //    string MailBox = "mikhailshetty@gmail.com";
+            //    Message.To.Add(MailBox);
+
+            //    Message.Body = "Waddup bitch";
+            //    Message.Subject ="Lafarge Mail test";
+
+            //    client.Send(Message);
+            //    client.Dispose();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.ToString());
+            //}
         }
         else
         {
@@ -124,7 +156,7 @@ public partial class Tracker : System.Web.UI.Page
 
             if (numberOfRowsReturned != 1)
             {
-                SqlCommand cmdInsert = new SqlCommand("Insert into TimeLog(ID,Date,SignIN) VALUES ('" + Convert.ToString(id) + "','" + DateTime.Now + "','" + DateTime.Now + "')", conn);
+                SqlCommand cmdInsert = new SqlCommand("Insert into TimeLog(ID,Date,SignIN) VALUES ('" + Convert.ToString(id) + "','" + DateTime.Now.ToShortDateString() + "','" + DateTime.Now + "')", conn);
                 int numberofrows = cmdInsert.ExecuteNonQuery();
             }
         }
@@ -136,6 +168,7 @@ public partial class Tracker : System.Web.UI.Page
         Response.Redirect("EditPage.aspx");
     }
     
+  
     protected void btnSignOut_Click(object sender, EventArgs e)
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
@@ -145,19 +178,34 @@ public partial class Tracker : System.Web.UI.Page
         GridViewRow row = btn.NamingContainer as GridViewRow;
         string id = GridView1.DataKeys[row.RowIndex].Values[0].ToString();
         string indexrow = GridView1.DataKeys[row.RowIndex].ToString();
+        int index = row.RowIndex;
 
-        SqlCommand cmdInsert = new SqlCommand("Update TimeLog set SignOUT = '" + DateTime.Now + "' where ID ='" + id + "'", conn);
-        int numberofrows = cmdInsert.ExecuteNonQuery();
+        SqlCommand cmdIfAlreadySignedOut = new SqlCommand("Select count(*) from TimeLog where Date = '" + DateTime.Now + "' and SignOUT <> '' and ID = '" + id + "'", conn);
+        int temp = Convert.ToInt32(cmdIfAlreadySignedOut.ExecuteScalar().ToString());
+        System.Web.UI.WebControls.Button btnSignOut1 = (System.Web.UI.WebControls.Button)GridView1.Rows[index].FindControl("btnSignOut");
 
-        GridView1.DataBind();
-        
+        if (temp == 1)
+        {
+            //don't show sign out button
+            btnSignOut1.Visible = false;
+        }
+        else
+        {
+            SqlCommand cmdInsert = new SqlCommand("Update TimeLog set SignOUT = '" + DateTime.Now + "' where ID ='" + id + "'", conn);
+            int numberofrows = cmdInsert.ExecuteNonQuery();
+
+            GridView1.DataBind();
+        }      
         // GridView1.Rows[Convert.ToInt32(indexrow)].btnSignOut.disabled;
         conn.Close();
+        //btn.Visible = false;
+        btnSignOut1.Visible = false;
         
     }
     protected void DropDownListNames_SelectedIndexChanged(object sender, EventArgs e)
     {
         btnSignIn.Enabled = true;
+        AlertWindow.Visible = false;
     }
 
 

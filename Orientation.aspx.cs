@@ -11,7 +11,7 @@ public partial class Orientation : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
@@ -30,11 +30,21 @@ public partial class Orientation : System.Web.UI.Page
 
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         conn.Open();
-        string checkID = "Select ID from Emp where FName = '" + fname + "' and LName = '" + lname + "'";
+        string checkID = "Select ID from Emp where FName = '" + fname + "' and LName = '" + lname + "' and Ocheck = 'N'";
         SqlCommand cmd = new SqlCommand(checkID, conn);
         int id = Convert.ToInt32(cmd.ExecuteScalar().ToString());
-        SqlCommand cmdUpdate = new SqlCommand("Update Emp set Ocheck = 'Y' where ID = '" + id + "'", conn);
+        SqlCommand cmdUpdate = new SqlCommand("Update Emp set Ocheck = 'Y', OrientationDate = '"+ DateTime.Now.ToShortDateString() + "' where ID = '" + id + "'", conn);
         cmdUpdate.ExecuteNonQuery();
         conn.Close();
+
+        AlertWindow.Visible = true;
+        AlertWindow.Text = "Successfully provided Orientation for " + name;
+        AlertWindow.CssClass = "alert alert-success";
+        DropDownListNames.DataBind();
+        //Response.Redirect("Tracker.aspx");
+    }
+    protected void DropDownListNames_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        AlertWindow.Visible = false;
     }
 }

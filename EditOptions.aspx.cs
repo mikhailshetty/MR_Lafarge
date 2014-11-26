@@ -18,7 +18,7 @@ public partial class EditOptions : System.Web.UI.Page
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         conn.Open();
 
-        SqlCommand cmdInsert = new SqlCommand("Insert into Emp(ID, FName, LName, Contact, Email, Ocheck, Ext, Facilitator) VALUES ('" + ((TextBox)GridView1.FooterRow.FindControl("txtID")).Text + "','" + ((TextBox)GridView1.FooterRow.FindControl("txtFName")).Text + "','" + ((TextBox)GridView1.FooterRow.FindControl("txtLName")).Text + "','" + ((TextBox)GridView1.FooterRow.FindControl("txtContact")).Text + "','" + ((TextBox)GridView1.FooterRow.FindControl("txtEmail")).Text + "','" + ((TextBox)GridView1.FooterRow.FindControl("txtOCheck")).Text + "','" + ((TextBox)GridView1.FooterRow.FindControl("txtExternal")).Text + "','" + ((TextBox)GridView1.FooterRow.FindControl("txtFacilitator")).Text + "')", conn);
+        SqlCommand cmdInsert = new SqlCommand("Insert into Emp(ID, FName, LName, Contact, Email, Ocheck, Ext, Facilitator) VALUES ('" + ((TextBox)GridView1.FooterRow.FindControl("txtID")).Text + "','" + ((TextBox)GridView1.FooterRow.FindControl("txtFName")).Text + "','" + ((TextBox)GridView1.FooterRow.FindControl("txtLName")).Text + "','" + ((TextBox)GridView1.FooterRow.FindControl("txtContact")).Text + "','" + ((TextBox)GridView1.FooterRow.FindControl("txtEmail")).Text + "','" + ((TextBox)GridView1.FooterRow.FindControl("txtOCheck")).Text + "','" + ((TextBox)GridView1.FooterRow.FindControl("txtExt")).Text + "','" + ((TextBox)GridView1.FooterRow.FindControl("txtFacilitator")).Text + "')", conn);
          int numberofrows = cmdInsert.ExecuteNonQuery();
         conn.Close();
         GridView1.DataBind();

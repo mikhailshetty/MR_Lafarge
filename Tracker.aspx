@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-md-2">
                    
-                    <asp:Button ID="btnSignIn" runat="server" Text="Sign In" OnClick="btnSignIn_Click" CssClass ="btn btn-sm btn-primary btn-block"/>
+                    <asp:Button ID="btnSignIn" CssClass ="btn btn-sm btn-primary btn-block" runat="server" Text="Sign In" OnClick="btnSignIn_Click"/>
                 </div>
             
                   <div class="col-md-2"></div>
@@ -40,7 +40,7 @@
                     <asp:BoundField DataField="FName" HeaderText="FName" SortExpression="FName" />
                     <asp:BoundField DataField="LName" HeaderText="LName" SortExpression="LName" />
                     <asp:BoundField DataField="SignIN" HeaderText="SignIN" SortExpression="SignIN" />
-                    <asp:BoundField DataField="Date" HeaderText="Date" SortExpression="Date" />
+                    <asp:BoundField DataField="Date" HeaderText="Date" SortExpression="Date" DataFormatString="{0:MM/dd/yy}" />
                     <asp:TemplateField HeaderText="SignOUT" SortExpression="SignOUT">
                         <EditItemTemplate>
                             <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("SignOUT") %>'></asp:TextBox>
@@ -65,6 +65,8 @@
 
          </ItemTemplate> --%>
 
+<ItemStyle HorizontalAlign="Right" Width="40px"></ItemStyle>
+
       </asp:TemplateField> 
                
                 </Columns>
@@ -79,6 +81,9 @@
         <asp:Panel ID="Panel1" runat="server">
         </asp:Panel>
         
+                  <br /><br />
+               <asp:Label ID="AlertWindow" Visible="false" CssClass="alert alert-success" runat="server" Width ="30%"></asp:Label>
+
        
              </div><!--jumbotron-->
 
