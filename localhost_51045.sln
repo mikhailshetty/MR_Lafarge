@@ -8,20 +8,20 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Lafarge", "http://localhost
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_51045"
-		Debug.AspNetCompiler.PhysicalPath = "..\Lafarge\"
+		Debug.AspNetCompiler.PhysicalPath = "E:\UFV\Project 351\Lafarge\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51045\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_51045"
-		Release.AspNetCompiler.PhysicalPath = "..\Lafarge\"
+		Release.AspNetCompiler.PhysicalPath = "E:\UFV\Project 351\Lafarge\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51045\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "..\Lafarge\"
+		SlnRelativePath = "E:\UFV\Project 351\Lafarge\"
 	EndProjectSection
 EndProject
 Global
